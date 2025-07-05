@@ -1,0 +1,76 @@
+{% extends "layout.html" %} {% block title %} Home {% endblock %} {% block titletwo %} My List {% endblock %} {% block main
+%}
+
+<table class="table table-striped">
+  <tr>
+    <th>Done</th>
+    <th>Title</th>
+    <th>Description</th>
+    <th></th>
+  </tr>
+  <tr>
+    <form action="/" method="POST">
+      <td></td>
+      <input name="action" value="add" type="hidden" />
+      <td><input name="t" placeholder="Title" type="text" /></td>
+      <td><input name="d" placeholder="Description" type="text" /></td>
+      <td><button class="btn btn-primary" type="submit">Add</button></td>
+    </form>
+  </tr>
+  {% for item in items %}
+  <tr>
+    <td>
+      {% if item['checked'] == 0 %}
+      <input
+        id="{{ item['item-id'] }}Checkbox"
+        name="checked"
+        type="checkbox"
+      />
+      {% elif item['checked'] == 1 %}
+      <input
+        id="{{ item['item-id'] }}Checkbox"
+        name="checked"
+        checked
+        type="checkbox"
+      />
+      {% endif %}
+      <script>
+        document
+          .getElementById("{{ item['item-id'] }}Checkbox")
+          .addEventListener("change", function () {
+            const formData = new FormData();
+            formData.append("action", "check");
+            formData.append("id", "{{ item['item-id'] }}");
+            if (this.checked) {
+              formData.append("checked", "on");
+            } else {
+            }
+
+            fetch("/", {
+              method: "POST",
+              body: formData,
+            })
+              .then((response) => {
+                if (!response.ok) {
+                  console.error("Server returned error");
+                }
+              })
+              .catch((error) => {
+                console.error("Request failed:", error);
+              });
+          });
+      </script>
+    </td>
+    <td>{{ item["title"] }}</td>
+    <td>{{ item["description"] }}</td>
+    <td>
+      <form action="/" method="post">
+        <input name="id" value="{{ item['item-id'] }}" type="hidden" />
+        <input name="action" value="delete" type="hidden" />
+        <button class="btn btn-danger" type="submit">DELETE</button>
+      </form>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}

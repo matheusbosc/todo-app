@@ -1,0 +1,28 @@
+{% extends "layout.html" %} {% block title %} Share List {% endblock %} {% block titletwo %} Share List {% endblock %} {% block main
+%}
+
+<table class="table table-striped">
+  <tr>
+    <th>Username</th>
+    <th></th>
+  </tr>
+  <tr>
+    <form action="/share" method="POST">
+      <input name="action" value="add" type="hidden" />
+      <td><input name="u" placeholder="Username" type="text" /></td>
+      <td><button class="btn btn-primary" type="submit">Add</button></td>
+    </form>
+  </tr>
+  {% for u in usernames %}
+    <td>{{ u["username"] }}</td>
+    <td>
+      <form action="/share" method="post">
+        <input name="u" value="{{ u['username'] }}" type="hidden" />
+        <input name="action" value="del" type="hidden" />
+        <button class="btn btn-danger" type="submit">Remove Access</button>
+      </form>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}

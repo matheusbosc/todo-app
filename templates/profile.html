@@ -1,0 +1,79 @@
+{% extends "layout.html" %} {% block title %} Profile {% endblock %} {% block titletwo %} My Profile {% endblock %} {% block main
+%}
+
+<h1>Hello, {{ name }}</h1>
+
+<br><br><br><br><br>
+
+<!-- SECTION MODIFIED BY CHATGPT -->
+<form id="resetForm" action="/profile" method="POST">
+  <input name="action" value="change" type="hidden" />
+  <button id="resetBtn" class="btn btn-primary" type="button">Reset Password</button>
+</form>
+
+<script>
+  const resetBtn = document.getElementById('resetBtn');
+  resetBtn.addEventListener('click', () => {
+      document.getElementById('resetForm').submit();
+  });
+</script>
+
+<br>
+
+<form id="clearForm" action="/profile" method="POST">
+  <input name="action" value="clear" type="hidden" />
+  <button id="clearBtn" class="btn btn-danger" type="button">Clear TODO List</button>
+</form>
+
+<script>
+  const clearBtn = document.getElementById('clearBtn');
+  let cleared = false;
+
+  clearBtn.addEventListener('click', () => {
+    if (!cleared) {
+      clearBtn.textContent = 'Click again to confirm';
+      clearBtn.classList.add('btn-warning');
+      cleared = true;
+
+      // Optional: reset after a few seconds
+      setTimeout(() => {
+        clearBtn.textContent = 'Clear TODO List';
+        clearBtn.classList.remove('btn-warning');
+        cleared = false;
+      }, 5000); // 5 seconds
+    } else {
+      document.getElementById('clearForm').submit();
+    }
+  });
+</script>
+
+<br>
+
+<form id="deleteForm" action="/profile" method="POST">
+  <input name="action" value="delete" type="hidden" />
+  <button id="deleteBtn" class="btn btn-danger" type="button">Delete Account</button>
+</form>
+
+<script>
+  const deleteBtn = document.getElementById('deleteBtn');
+  let deleted = false;
+
+  deleteBtn.addEventListener('click', () => {
+    if (!deleted) {
+      deleteBtn.textContent = 'Click again to confirm';
+      deleteBtn.classList.add('btn-warning');
+      deleted = true;
+
+      // Optional: reset after a few seconds
+      setTimeout(() => {
+        deleteBtn.textContent = 'Delete Account';
+        deleteBtn.classList.remove('btn-warning');
+        deleted = false;
+      }, 5000); // 5 seconds
+    } else {
+      document.getElementById('deleteForm').submit();
+    }
+  });
+</script>
+
+{% endblock %}
