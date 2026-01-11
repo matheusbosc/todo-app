@@ -2,3 +2,5 @@
 #### Video Demo:  <URL HERE>
 #### Description: 
 TODO App is a web application made using Python (Flask), javascript, HTML, and CSS. In the app, you have an account that is linked to a table in the database where the items are stored. When you create an account, a table is created for your items. When logged in you can manage your todo items in the main page (/). You can add items, delete items, and mark them as done with a checkmark. There is also a profile page where you are able to manage your account (/profile). You can change password, clear the list (Delete all items), and delete your account, which deletes both the user in the users table, and your list table. In the web app, you're also able to share your list (/share) with other users and let them access the tables (/shared/<username>), and view all of the list shared with you, or that you've shared (/shared & /share).
+
+Made By Matheus - matheusbosc.com
